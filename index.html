@@ -264,9 +264,7 @@ footer {
   <h2>Leader</h2>
   <div class="member-container">
     <div class="member-card"><img src="438LOGO2.png" class="member-img"><div class="member-name">Simreal 438</div><div class="member-phone">IG: _4rxshhl</div></div>
-    
     <div class="member-card"><img src="438LOGO2.png" class="member-img"><div class="member-name">Simba 438</div><div class="member-phone">IG: back.valiant</div></div>
-    
     <div class="member-card"><img src="438LOGO2.png" class="member-img"><div class="member-name">babyremdontcry 438</div><div class="member-phone">IG: _zugus</div></div>
   </div>
 </section>
@@ -276,16 +274,10 @@ footer {
   <h2>Member</h2>
   <div class="member-container">
     <div class="member-card"><img src="438LOGO2.png" class="member-img"><div class="member-name">babycarrish 438</div><div class="member-phone">IG: a0msiinz9</div></div>
-    
     <div class="member-card"><img src="438LOGO2.png" class="member-img"><div class="member-name">GodthurVLN 438</div><div class="member-phone">IG: godreal_857</div></div>
-    
     <div class="member-card"><img src="438LOGO2.png" class="member-img"><div class="member-name">HakopGYT 438</div><div class="member-phone">IG: Hakop.VLN</div></div>
-    
     <div class="member-card"><img src="438LOGO2.png" class="member-img"><div class="member-name">Realduck Hipnosen 438</div><div class="member-phone">IG: raelduck</div></div>
-    
-    
     <div class="member-card"><img src="438LOGO2.png" class="member-img"><div class="member-name">Ten Zeranozero 438</div><div class="member-phone">IG: Sugus_.Dekmaitem</div></div>
-    
   </div>
 </section>
 
@@ -296,20 +288,25 @@ footer {
   <source src="Kayflock.mp3" type="audio/mpeg">
 </audio>
 
-<div id="musicControl" class="paused"><i class="bi bi-disc"></i></div>
+<div id="musicControl" class="paused">
+  <i class="bi bi-disc"></i>
+</div>
 
 <script>
-const searchInput = document.getElementById('searchInput');
-const memberCards = document.querySelectorAll('.member-card');
 const bgMusic = document.getElementById('bgMusic');
 const musicControl = document.getElementById('musicControl');
 const menuToggle = document.getElementById('menuToggle');
-const navLi<});
+const navLinks = document.getElementById('navLinks');
 
-// เพลง
+// 🎧 ป้องกัน autoplay error
+document.addEventListener("click", () => {
+  if (bgMusic.paused) bgMusic.load();
+}, { once: true });
+
 let isPlaying = false;
 let volume = 0;
 
+// 🎧 ระบบเพลง
 musicControl.addEventListener('click', () => {
   if (!isPlaying) {
     bgMusic.volume = 0;
@@ -318,11 +315,15 @@ musicControl.addEventListener('click', () => {
         if (volume < 0.5) {
           volume += 0.02;
           bgMusic.volume = volume;
-        } else clearInterval(fadeIn);
-      }, 200);
-    });
+        } else {
+          clearInterval(fadeIn);
+        }
+      }, 120);
+    }).catch(err => console.log("Autoplay blocked:", err));
+
     musicControl.classList.remove('paused');
     isPlaying = true;
+
   } else {
     bgMusic.pause();
     bgMusic.currentTime = 0;
@@ -332,7 +333,7 @@ musicControl.addEventListener('click', () => {
   }
 });
 
-// เมนูมือถือ
+// 📱 เมนูมือถือ
 menuToggle.addEventListener('click', () => {
   navLinks.classList.toggle('active');
 });
